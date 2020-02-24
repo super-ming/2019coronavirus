@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+
+import Homepage from './components/pages/homepage';
+
+import { DataReportProvider } from './components/context/DataReportContext';
 
 function App() {
+  const [dataReport, setDataReport] = useState({});
+  const loadDataReport = () => {
+    fetch('http://localhost:5000/api/data').then(res =>res.json())
+    .then(data => {
+      setDataReport(data);
+    }).catch(err => console.log(err))
+  };
+  useEffect(() => loadDataReport(), [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+      
       </header>
+      <DataReportProvider value={dataReport}>
+        <Homepage />
+      </DataReportProvider>
+      
     </div>
   );
 }
