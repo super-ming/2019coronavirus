@@ -1,15 +1,24 @@
-import React, { useEffect, useContext, Fragment } from 'react';
+import React, { useEffect, useState, useContext, Fragment } from 'react';
 import DataReportContext from '../context/DataReportContext';
 import List from '../list';
-import Map from '../map';
+import LeafletMap from '../map';
+import Header from '../header';
 
 function Homepage() {
     const data = useContext(DataReportContext);
+    
+    const [openList, setOpenList] = useState(true);
+    function toggleList(){
+        setOpenList(!openList);
+    }
     return (
-        <div className={"flex flex-row h-screen"}>
-            <List data={data}/> 
-            <Map />  
-        </div>
+        <Fragment>
+            <Header toggleList={toggleList}/>
+            <div className={"flex flex-row h-screen"}>
+                <List data={data} openList={openList}/> 
+                <LeafletMap />  
+            </div>
+        </Fragment>
     )
 }
 

@@ -14,8 +14,9 @@ function List(props){
 	}, [props.data.cases]);
 	const makeList = () => {
 		if(props.data.casesByCountry){
-			const list = props.data.casesByCountry.map((cases, idx) => {
-				const {_id, confirmedCount, deathCount, recoveredCount} = cases;
+			const list = props.data.casesByCountry.map((c, idx) => {
+				
+				const {_id, confirmedCount, deathCount, recoveredCount} = c;
 				return (
 					<div key={idx} className="bg-gray-500 hover:bg-white p-4">
 					<div className={"text-base"}>{Utils.formatNum(confirmedCount)} {_id}</div>
@@ -29,7 +30,7 @@ function List(props){
 	}
     
 	return (
-		<div className={"w-1/4 overflow-auto"}>
+		<div className={`w-1/5 overflow-auto transition ease-in-out animated ${props.openList ? `slideInLeft` : `animated slideOutLeft`} `}>
 			<div className="bg-gray-500 hover:bg-white p-4 text-lg">{totalConfirmed} Confirmed cases</div>
 			{props.data.casesByCountry && makeList()}
 		</div>
