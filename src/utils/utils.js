@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 class Utils {
-    static getData(){
-        const data = axios.get('http://localhost:5000')
+    static async getData(url){
+        const dataP = await axios.get('http://localhost:5000/api/data').then(res => {return res}).catch(err => {return err});
+        return dataP.data;
     };
 
     static formatNum(num){
