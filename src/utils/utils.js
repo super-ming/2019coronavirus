@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class Utils {
     static async getData(url){
-        const dataP = await axios.get('http://localhost:5000/api/data').then(res => {return res}).catch(err => {return err});
+        const dataP = await axios.get(url).then(res => {return res}).catch(err => {return err});
         return dataP.data;
     };
 

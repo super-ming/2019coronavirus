@@ -28,7 +28,7 @@ function List(props){
 	return (
 		<Fragment>
 			{data.casesByCountry && 
-				<div className="overflow-scroll">
+				<div className="overflow-y-scroll max-h-3/4">
 					{makeList()}
 				</div>
 			}

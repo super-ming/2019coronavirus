@@ -8,7 +8,11 @@ module.exports = {
       'full': '100%',
       'screen': '100vh'
     },
-    extend: {},
+    extend: {
+      transitionProperty: {
+        'visibility': 'visibility'
+      }
+    },
   },
   variants: {},
   plugins: [

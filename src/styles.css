@@ -10880,6 +10880,10 @@ video {
   transition-property: transform;
 }
 
+.transition-visibility {
+  transition-property: visibility;
+}
+
 .ease-linear {
   transition-timing-function: linear;
 }
@@ -22812,6 +22816,10 @@ video {
     transition-property: transform;
   }
 
+  .sm\:transition-visibility {
+    transition-property: visibility;
+  }
+
   .sm\:ease-linear {
     transition-timing-function: linear;
   }
@@ -33507,6 +33515,10 @@ video {
 
   .md\:transition-transform {
     transition-property: transform;
+  }
+
+  .md\:transition-visibility {
+    transition-property: visibility;
   }
 
   .md\:ease-linear {
@@ -44206,6 +44218,10 @@ video {
     transition-property: transform;
   }
 
+  .lg\:transition-visibility {
+    transition-property: visibility;
+  }
+
   .lg\:ease-linear {
     transition-timing-function: linear;
   }
@@ -54901,6 +54917,10 @@ video {
 
   .xl\:transition-transform {
     transition-property: transform;
+  }
+
+  .xl\:transition-visibility {
+    transition-property: visibility;
   }
 
   .xl\:ease-linear {
