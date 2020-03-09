@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ReactComponent as Icon } from '../assets/buttonicon.svg';
 
 function Header(props){

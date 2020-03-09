@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Map, CircleMarker, TileLayer } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import DataReportContext from './context/DataReportContext';
@@ -14,7 +14,7 @@ function LeafletMap(props){
                         radius={c.confirmedCount < 2 ? 2 : 2 * Math.log(c.confirmedCount)}
                         fillRadius={1}
                         stroke={false}
-                        fillOpacity={0.8}
+                        fillOpacity={0.7}
                         />
                     )
                 }
@@ -44,7 +44,7 @@ function LeafletMap(props){
     }
     
     return (
-        <div className="w-1/2 p-4">
+        <div className="w-1/2 px-4">
             <Map
                 style={{ height: "480px", width: "100%" }}
                 zoom={5}
