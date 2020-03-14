@@ -8,22 +8,36 @@ const List = lazy(() => import('../components/List'));
 const TotalConfirmedCard = lazy(() => import('../components/TotalConfirmedCard'));
 const TwitterBoard = lazy(() => import('../components/TwitterBoard'));
 
+interface Case {
+    country: string,
+    province: string,
+    confirmedCount: number,
+    deathCount: number,
+    recoveredCount: number,
+    lastUpdate: string,
+    lat: number,
+    lng: number,
+    __v: number
+    _id: {}
+}
+
 function Homepage() {
     const [openList, setOpenList] = useState(true);
     const [listLocation, setListLocation] = useState("");
-    const [dataReport, setDataReport] = useState({cases: []});
-    const [totalConfirmed, setTotalConfirmed] = useState();
+    const [dataReport, setDataReport] = useState({cases: [], casesByCountry: [], minMaxLatLng: {}});
+    const [totalConfirmed, setTotalConfirmed] = useState(0);
     const loadDataReport = () => {
         Utils.getData('http://localhost:5000/api/cases').then(data => {
+            console.log(data)
             setDataReport(data);
         }).catch(err => console.log(err))
     };
     useEffect(() => loadDataReport(), [])
     useEffect(()=>{
 		if(dataReport){
-			const total = dataReport.cases.reduce((acc, cur) => {
+			const total = dataReport.cases.reduce((acc, cur:Case) => {
 				const confirmed = cur.confirmedCount;
-				return acc += parseInt(confirmed); 
+				return acc += confirmed; 
             }, 0);
 			setTotalConfirmed(total);
 		}
@@ -31,8 +45,8 @@ function Homepage() {
     function toggleList(){
         setOpenList(!openList);
     }
-    function handleListClick(e){
-        setListLocation(e);
+    function handleListClick(loc: string){
+        setListLocation(loc);
     }
     return (
         <DataReportProvider value={dataReport}>

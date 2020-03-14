@@ -3,11 +3,41 @@ import { Map, CircleMarker, TileLayer } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import DataReportContext from './context/DataReportContext';
 
-function LeafletMap(props){
+interface MapProps {
+    currentLocation?: string
+}
+
+type Case = {
+    confirmedCount: number,
+    lat?: number,
+    lng?: number
+}
+
+interface MinMaxLatLng {
+    minLat?: number,
+    minLng?: number,
+    maxLat?: number,
+    maxLng?: number
+}
+
+interface CasesByCountry {
+    country: string,
+    province: string,
+    confirmedCount: number,
+    deathCount: number,
+    recoveredCount: number,
+    lastUpdate: string,
+    lat: number,
+    lng: number,
+    __v: number
+    _id: {}
+}
+
+function LeafletMap(props: MapProps){
     const data = useContext(DataReportContext);
     const makeMarkers = () => {
         if(data.cases){
-            const markers = data.cases.map((c, idx) => {
+            const markers = data.cases.map((c:Case, idx) => {
                 if(c.lat && c.lng){
                     return (<CircleMarker 
                         key={idx} center={[c.lat, c.lng]} 
@@ -18,27 +48,28 @@ function LeafletMap(props){
                         />
                     )
                 }
-                
+                return ''
             })
             return markers
         }
     };
-    let minLat, minLng, maxLat, maxLng, centerLat, centerLng, bufferLat, bufferLng;
-    
-    if(data.minMaxLatLng){
-        minLat = data.minMaxLatLng.minLat;
-        minLng = data.minMaxLatLng.minLng;
-        maxLat = data.minMaxLatLng.maxLat;
-        maxLng = data.minMaxLatLng.maxLng;
+    let minLat:number | undefined = 0, minLng:number | undefined = 0, maxLat:number | undefined = 0, maxLng:number | undefined = 0, centerLat:number | undefined = 0, centerLng:number | undefined = 0, bufferLat:number | undefined = 0, bufferLng:number | undefined = 0;
+    const minMaxCoords = data.minMaxLatLng as MinMaxLatLng; 
+    if(minMaxCoords){
+        minLat = minMaxCoords.minLat || 0;
+        minLng = minMaxCoords.minLng || 0;
+        maxLat = minMaxCoords.maxLat || 0;
+        maxLng = minMaxCoords.maxLng || 0;
         centerLat = (minLat + maxLat) / 2;
         const distanceLat = maxLat - minLat;
-        bufferLat = distanceLat * 0.05;
+        bufferLat = distanceLat * 0.05 || 0;
         centerLng = (minLng + maxLng) / 2;
         const distanceLng = maxLng - minLng;
-        bufferLng = distanceLng * 0.15;
+        bufferLng = distanceLng * 0.15 || 0;
     }
     if(props.currentLocation){
-        const loc = data.casesByCountry.find(el => el._id === props.currentLocation);
+        const casesByCountry = data.casesByCountry as CasesByCountry[];
+        const loc = casesByCountry.find(el => el._id === props.currentLocation) as CasesByCountry;
         centerLat = loc.lat;
         centerLng = loc.lng;
     }

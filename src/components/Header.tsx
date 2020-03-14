@@ -1,7 +1,11 @@
 import React from 'react';
 import { ReactComponent as Icon } from '../assets/buttonicon.svg';
 
-function Header(props){
+interface HeaderProps {
+    toggleList: () => void
+}
+
+function Header(props: HeaderProps){
     return (
         <div className="flex flex-row w-full bg-blue-500 ">
             <button className="mx-4" onClick={()=>props.toggleList()}><Icon width={25}/></button>

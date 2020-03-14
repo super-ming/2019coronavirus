@@ -2,7 +2,12 @@ import React, { useContext, Fragment } from 'react';
 import Utils from '../utils/utils';
 import DataReportContext from './context/DataReportContext';
 
-function List(props){
+interface ListProps {
+	openList: boolean,
+    handleListClick: Function
+}
+
+function List(props: ListProps){
     const data = useContext(DataReportContext);
 
 	const makeList = () => {
