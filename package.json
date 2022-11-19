@@ -12,7 +12,7 @@
     "react-google-login": "^5.1.0",
     "react-leaflet": "^2.6.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.1",
+    "react-scripts": "5.0.1",
     "styled-components": "^5.0.1",
     "tailwindcss-animatecss": "^0.2.7"
   },
